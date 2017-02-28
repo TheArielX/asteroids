@@ -1,13 +1,23 @@
 #include "App.hpp"
-#include <iostream>
+
 #include <algorithm>
 
 // OpenGL includes
 #include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
 
+
+#include <fstream>
+
+
+//
+#include "Configuration.hpp"
+#include <iostream>
+#include "Asteroids.h"
+
 namespace Engine
 {
+	std::vector<Asteroids::Entities::Asteroid*> m_asteroid;
 	const float DESIRED_FRAME_RATE = 60.0f;
 	const float DESIRED_FRAME_TIME = 1.0f / DESIRED_FRAME_RATE;
 
@@ -18,6 +28,7 @@ namespace Engine
 		, m_nUpdates(0)
 		, m_timer(new TimeManager)
 		, m_mainWindow(nullptr)
+		, m_currentIndex(0)
 	{
 		m_state = GameState::UNINITIALIZED;
 		m_lastFrameTime = m_timer->GetElapsedTimeInSeconds();
@@ -25,6 +36,17 @@ namespace Engine
 
 	App::~App()
 	{
+		// Delete entities
+		//
+		for (auto entity : m_entities)
+		{
+			delete entity;
+		}
+
+		// Clear list
+		//
+		m_entities.clear();
+
 		CleanupSDL();
 	}
 
@@ -73,15 +95,43 @@ namespace Engine
 		//
 		m_state = GameState::INIT_SUCCESSFUL;
 
+		// Loading models
+		//
+		Asteroids::Utilities::Configuration config;
+		m_entities = config.LoadModels();
+		m_asteroid = config.CreateAsteroid();
+
 		return true;
 	}
 
 	void App::OnKeyDown(SDL_KeyboardEvent keyBoardEvent)
+
 	{		
+		/* 
+		 * W (UP)
+		 * A (LEFT)
+		 * S (DOWN)
+		 * D (RIGHT)
+		 */
+
 		switch (keyBoardEvent.keysym.scancode)
 		{
-		default:			
-			SDL_Log("%S was pressed.", keyBoardEvent.keysym.scancode);
+		case SDL_SCANCODE_W:
+			m_entities[m_currentIndex]->MoveUp();
+			break;
+		case SDL_SCANCODE_A:
+			m_entities[m_currentIndex]->MoveLeft();
+			break;
+		case SDL_SCANCODE_S:
+			m_entities[m_currentIndex]->MoveDown();
+			break;
+		case SDL_SCANCODE_D:
+			m_entities[m_currentIndex]->MoveRight();
+			break;
+		default:
+			SDL_Log("Physical %s key acting as %s key",
+				SDL_GetScancodeName(keyBoardEvent.keysym.scancode),
+				SDL_GetKeyName(keyBoardEvent.keysym.sym));
 			break;
 		}
 	}
@@ -90,6 +140,13 @@ namespace Engine
 	{
 		switch (keyBoardEvent.keysym.scancode)
 		{
+		case SDL_SCANCODE_P:
+			m_currentIndex++;
+			if (m_currentIndex > (m_entities.size() - 1))
+			{
+				m_currentIndex = 0;
+			}
+			break;
 		case SDL_SCANCODE_ESCAPE:
 			OnExit();
 			break;
@@ -105,6 +162,7 @@ namespace Engine
 
 		// Update code goes here
 		//
+		m_entities[m_currentIndex]->Update(DESIRED_FRAME_TIME);
 
 		double endTime = m_timer->GetElapsedTimeInSeconds();
 		double nextTimeFrame = startTime + DESIRED_FRAME_TIME;
@@ -127,11 +185,9 @@ namespace Engine
 		glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glBegin(GL_TRIANGLES);
-		glVertex2f(-50.0, 0);
-		glVertex2f(50.0, 0);
-		glVertex2f(0, 50.0);
-		glEnd();
+		//
+		m_entities[m_currentIndex]->Draw();
+		m_asteroid[0]->Draw();
 
 		SDL_GL_SwapWindow(m_mainWindow);
 	}
@@ -178,7 +234,7 @@ namespace Engine
 		return true;
 	}
 
-	void App::SetupViewport()
+	void App::SetupViewport()const
 	{
 		// Defining ortho values
 		//
@@ -215,7 +271,7 @@ namespace Engine
 		return true;
 	}
 
-	void App::CleanupSDL()
+	void App::CleanupSDL()const
 	{
 		// Cleanup
 		//
@@ -241,8 +297,8 @@ namespace Engine
 		//
 		m_state = GameState::QUIT;
 
-		// Cleanup SDL pointers
+		// Stop the timer
 		//
-		CleanupSDL();
+		m_timer->Stop();
 	}
 }

@@ -3,12 +3,14 @@
 #define APP_HPP
 
 // C++ STL
-#include <string>
 #include <list>
+#include <vector>
 
-// Asteroids
+
 #include "SDLEvent.hpp"
 #include "TimeManager.hpp"
+#include "Ship.hpp"
+#include "Asteroid.hpp"
 
 namespace Engine
 {
@@ -45,9 +47,9 @@ namespace Engine
 		 * PRIVATE FUNCTIONS
 		 * ============================================================= */
 		bool SDLInit						( );
-		bool GlewInit						( );
-		void SetupViewport					( );
-		void CleanupSDL						( );
+		static bool GlewInit						( );
+		void SetupViewport					( )const;
+		void CleanupSDL						( )const;
 		void OnResize						( int width, int height ) override;
 		void OnExit							( ) override;
 		void OnKeyDown						( SDL_KeyboardEvent keyBoardEvent ) override;
@@ -66,6 +68,11 @@ namespace Engine
 		SDL_GLContext						m_context;
 		GameState::State					m_state;
 		Engine::TimeManager*				m_timer;
+
+
+		//
+		int									m_currentIndex;
+		std::vector<Asteroids::Entities::Ship*> m_entities;
 
 	};
 }

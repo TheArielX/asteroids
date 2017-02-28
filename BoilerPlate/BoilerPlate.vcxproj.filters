@@ -1,16 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Engine\Source files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Configuration.cpp">
+      <Filter>Game\Source files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities.cpp">
+      <Filter>Engine\Source files\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship.cpp">
+      <Filter>Game\Source files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Game\Source files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawable2D.cpp">
+      <Filter>Engine\Source files\Graphics</Filter>
+    </ClCompile>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SDLEvent.cpp" />
-    <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="stb_image.c" />
+    <ClCompile Include="TimeManager.cpp" />
+    <ClCompile Include="Asteroids.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Utilities.hpp">
+      <Filter>Engine\Header files\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.hpp">
+      <Filter>Engine\Header files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration.hpp">
+      <Filter>Game\Header files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship.hpp">
+      <Filter>Game\Header files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.hpp">
+      <Filter>Game\Header files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable2D.hpp">
+      <Filter>Engine\Header files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h">
+      <Filter>Engine\Header files\Math</Filter>
+    </ClInclude>
     <ClInclude Include="App.hpp" />
     <ClInclude Include="SDLEvent.hpp" />
     <ClInclude Include="TimeManager.hpp" />
+    <ClInclude Include="Asteroids.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -21,6 +62,45 @@
     </Filter>
     <Filter Include="Engine\Header files">
       <UniqueIdentifier>{da8cc683-e66e-46b9-be58-7d0e16e23f76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header files\FileSystem">
+      <UniqueIdentifier>{3bfc0f6d-b347-4b1e-8409-b8e30ab88246}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source files\FileSystem">
+      <UniqueIdentifier>{224a5f06-4c71-4095-8314-43514ffaf30b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header files\Math">
+      <UniqueIdentifier>{d9ec19b5-abcc-45c2-80b1-4ed53fce3fe3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source files\Math">
+      <UniqueIdentifier>{4649cadd-77b6-4382-9b0d-159a34ce24e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{00820807-11a8-408e-94ed-3d134f3556b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Header files">
+      <UniqueIdentifier>{9b0d03eb-0ba5-426c-8c19-b575484c7008}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Source files">
+      <UniqueIdentifier>{bec6f606-2848-4bcc-98ff-87371cab05de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Header files\Utilities">
+      <UniqueIdentifier>{0c874cc1-8476-455e-8eb2-b07c46bbc601}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Source files\Utilities">
+      <UniqueIdentifier>{74e2ecdb-3ad8-4d24-a096-e79744ffd820}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Header files\Entities">
+      <UniqueIdentifier>{5717dc7b-f40a-4209-a2f8-97113bb1de4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Source files\Entities">
+      <UniqueIdentifier>{8dc910d5-2071-43f8-be2a-ba79dc025ec6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header files\Graphics">
+      <UniqueIdentifier>{35516218-15de-46d1-87b8-a3bc07842ef4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Source files\Graphics">
+      <UniqueIdentifier>{b79d1e05-9436-4405-a590-36f0b1efec01}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
